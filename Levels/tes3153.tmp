@@ -1,9 +1,10 @@
-[gd_scene load_steps=8 format=3 uid="uid://bkqry3okpmtlk"]
+[gd_scene load_steps=9 format=3 uid="uid://bkqry3okpmtlk"]
 
 [ext_resource type="Texture2D" uid="uid://r2e3i5kb8mxm" path="res://Art/Tilemap/tilemap_packed.png" id="1_xxayt"]
 [ext_resource type="Script" path="res://Levels/TileMap.gd" id="2_ifh17"]
 [ext_resource type="PackedScene" uid="uid://bhcq3pnmwxblu" path="res://Character/player.tscn" id="2_k3e5d"]
-[ext_resource type="PackedScene" uid="uid://nk3kaxmwu2gc" path="res://Character/villager.tscn" id="4_fy52j"]
+[ext_resource type="Script" path="res://Levels/CharacterBody2D.gd" id="4_54yam"]
+[ext_resource type="Texture2D" uid="uid://b23ef5vyc724a" path="res://Art/villagers.png" id="5_634lx"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_sdgbl"]
 texture = ExtResource("1_xxayt")
@@ -416,8 +417,8 @@ custom_data_layer_0/name = "type"
 custom_data_layer_0/type = 4
 sources/1 = SubResource("TileSetAtlasSource_sdgbl")
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_4muxl"]
-size = Vector2(15.5556, 9.44443)
+[sub_resource type="CircleShape2D" id="CircleShape2D_jaw77"]
+radius = 7.07107
 
 [node name="TestLevel" type="Node2D"]
 
@@ -438,22 +439,22 @@ scale = Vector2(1.8, 1.8)
 [node name="RemoteTransform2D" type="RemoteTransform2D" parent="Player"]
 remote_path = NodePath("../../Camera2D")
 
-[node name="Area2D" type="Area2D" parent="Player"]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Player/Area2D" groups=["dragon"]]
-position = Vector2(0, 3.05555)
-shape = SubResource("RectangleShape2D_4muxl")
-
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(100, 90)
 scale = Vector2(1.8, 1.8)
 
-[node name="Villager" parent="." instance=ExtResource("4_fy52j")]
+[node name="CharacterBody2D" type="CharacterBody2D" parent="."]
+position = Vector2(172, 217)
+script = ExtResource("4_54yam")
 
-[node name="Villager2" parent="." instance=ExtResource("4_fy52j")]
-position = Vector2(372, 85)
+[node name="Sprite2D" type="Sprite2D" parent="CharacterBody2D"]
+texture_filter = 1
+texture = ExtResource("5_634lx")
+hframes = 6
+vframes = 4
+frame = 2
+metadata/_edit_lock_ = true
 
-[node name="CharacterBody2D3" parent="." instance=ExtResource("4_fy52j")]
-position = Vector2(1009, 632)
-
-[connection signal="area_entered" from="Player/Area2D" to="Player" method="_on_area_2d_area_entered"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D"]
+shape = SubResource("CircleShape2D_jaw77")
+metadata/_edit_lock_ = true

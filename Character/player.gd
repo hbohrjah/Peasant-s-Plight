@@ -34,3 +34,9 @@ func pick_new_state():
 		state_machine.travel("Walk")
 	else:
 		state_machine.travel("Idle")
+
+
+func _on_area_2d_area_entered(area):
+	print("out")
+	
+	pass # Replace with function body.
