@@ -1,0 +1,57 @@
+[gd_scene load_steps=6 format=3 uid="uid://2hst8v5efxkn"]
+
+[ext_resource type="Texture2D" uid="uid://cealk1gssp37i" path="res://Art/Tiles/tile_0088.png" id="1_4flws"]
+[ext_resource type="Script" path="res://Character/NewVillagers/new_villager.gd" id="1_fkd34"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_2t53l"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_o5hhg"]
+radius = 142.004
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_1n3sy"]
+radius = 222.02
+
+[node name="NewVillager" type="CharacterBody2D" node_paths=PackedStringArray("navAgent")]
+collision_layer = 4
+collision_mask = 7
+motion_mode = 1
+wall_min_slide_angle = 0.0
+script = ExtResource("1_fkd34")
+navAgent = NodePath("NavigationAgent2D")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_4flws")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_2t53l")
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
+avoidance_enabled = true
+radius = 10.16
+neighbor_distance = 40.9
+debug_enabled = true
+
+[node name="Recalculator" type="Timer" parent="."]
+autostart = true
+
+[node name="aggro" type="Node2D" parent="."]
+
+[node name="fearRange" type="Area2D" parent="aggro"]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="aggro/fearRange"]
+shape = SubResource("CircleShape2D_o5hhg")
+debug_color = Color(1, 1, 1, 0)
+
+[node name="otherRange" type="Area2D" parent="aggro"]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="aggro/otherRange"]
+shape = SubResource("CircleShape2D_1n3sy")
+debug_color = Color(0, 0.6, 0.701961, 0)
+
+[connection signal="velocity_computed" from="NavigationAgent2D" to="." method="_on_navigation_agent_2d_velocity_computed"]
+[connection signal="timeout" from="Recalculator" to="." method="_on_recalculator_timeout"]
+[connection signal="area_entered" from="aggro/fearRange" to="." method="_on_fear_range_area_entered"]
