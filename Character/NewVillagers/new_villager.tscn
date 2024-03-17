@@ -9,7 +9,7 @@
 radius = 142.004
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_1n3sy"]
-radius = 222.02
+radius = 662.822
 
 [node name="NewVillager" type="CharacterBody2D" node_paths=PackedStringArray("navAgent")]
 collision_layer = 4
@@ -32,6 +32,7 @@ neighbor_distance = 40.9
 debug_enabled = true
 
 [node name="Recalculator" type="Timer" parent="."]
+wait_time = 0.18
 autostart = true
 
 [node name="aggro" type="Node2D" parent="."]
@@ -55,3 +56,4 @@ debug_color = Color(0, 0.6, 0.701961, 0)
 [connection signal="velocity_computed" from="NavigationAgent2D" to="." method="_on_navigation_agent_2d_velocity_computed"]
 [connection signal="timeout" from="Recalculator" to="." method="_on_recalculator_timeout"]
 [connection signal="area_entered" from="aggro/fearRange" to="." method="_on_fear_range_area_entered"]
+[connection signal="area_entered" from="aggro/otherRange" to="." method="_on_other_range_area_entered"]
