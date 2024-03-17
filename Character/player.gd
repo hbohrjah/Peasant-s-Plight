@@ -6,9 +6,16 @@ extends CharacterBody2D
 
 @onready var animation_tree = $AnimationTree
 @onready var state_machine = animation_tree.get("parameters/playback")
+const bulletPath = preload('res://fireball.tscn')
 
 func _ready():
 	update_animation_parameters(starting_direction)
+	
+func _process(delta):
+	if Input.is_action_just_pressed("click"):
+		breathe()
+	
+	$Node2D.look_at(get_global_mouse_position())
 
 func _physics_process(delta):
 	# Get the input direction and handle the movement/deceleration.
@@ -40,3 +47,13 @@ func _on_area_2d_area_entered(area):
 	print("out")
 	
 	pass # Replace with function body.
+	
+func breathe():
+	var count = 0
+	var bullet = bulletPath.instantiate()
+	get_parent().add_child(bullet)
+	bullet.position = $Node2D/Marker2D.global_position 
+	
+	bullet.vel = get_global_mouse_position() - bullet.position
+	count = count +1
+	

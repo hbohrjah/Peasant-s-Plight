@@ -28,4 +28,7 @@ func _unhandled_input(event):
 
 
 func _on_area_2d_area_entered(area):
-	queue_free()
+	if area.is_in_group("dragon"):
+		queue_free()
+	if area.is_in_group("fireball"):
+		queue_free()

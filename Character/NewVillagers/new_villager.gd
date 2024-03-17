@@ -34,3 +34,9 @@ func _on_fear_range_area_entered(area):
 func _on_navigation_agent_2d_velocity_computed(safe_velocity):
 	velocity = safe_velocity
 	move_and_slide()
+	
+func _on_area_2d_area_entered(area):
+	if area.is_in_group("dragon"):
+		queue_free()
+	if area.is_in_group("fireball"):
+		queue_free()
