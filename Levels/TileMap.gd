@@ -14,7 +14,7 @@ func _ready():
 	astar.region =  map_rect
 	astar.cell_size = tile_size
 	astar.default_compute_heuristic = AStarGrid2D.HEURISTIC_MANHATTAN
-	astar.diagonal_mode = AStarGrid2D.DIAGONAL_MODE_NEVER
+
 	
 	astar.update()
 	

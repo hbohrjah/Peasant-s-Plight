@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://bhcq3pnmwxblu"]
+[gd_scene load_steps=23 format=3 uid="uid://bhcq3pnmwxblu"]
 
 [ext_resource type="Script" path="res://Character/player.gd" id="1_deb2f"]
 [ext_resource type="Texture2D" uid="uid://b851tfb7cpvbi" path="res://Character/AdultRedDragonIdleSide.png" id="2_opcbu"]
@@ -124,6 +124,8 @@ states/Walk/node = SubResource("AnimationNodeBlendSpace2D_tifps")
 states/Walk/position = Vector2(553.5, 94)
 transitions = ["Start", "Idle", SubResource("AnimationNodeStateMachineTransition_ue3qp"), "Idle", "Walk", SubResource("AnimationNodeStateMachineTransition_718bf"), "Walk", "Idle", SubResource("AnimationNodeStateMachineTransition_l216m")]
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_eqcsg"]
+
 [node name="Player" type="CharacterBody2D"]
 script = ExtResource("1_deb2f")
 
@@ -148,3 +150,11 @@ tree_root = SubResource("AnimationNodeStateMachine_lo7rc")
 anim_player = NodePath("../AnimationPlayer")
 parameters/Idle/blend_position = Vector2(0, 0)
 parameters/Walk/blend_position = Vector2(0, 0)
+
+[node name="Area2D" type="Area2D" parent="."]
+position = Vector2(0, 3)
+collision_layer = 2
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_eqcsg")

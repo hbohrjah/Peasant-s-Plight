@@ -13,13 +13,12 @@ func _process(delta):
 	
 	if global_position == target_pos:
 		current_path.pop_front()
-	
+		
+
 	pass
 
 func _unhandled_input(event):
 	var dragon_position = dragon.global_position
-	#position.x
-	#position.y
 	
 	if tilemap.is_point_walkable(dragon_position):
 		current_path = tilemap.astar.get_id_path(
@@ -30,4 +29,3 @@ func _unhandled_input(event):
 
 func _on_area_2d_area_entered(area):
 	queue_free()
-	pass # Replace with function body.
