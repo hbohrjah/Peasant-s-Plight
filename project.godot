@@ -58,6 +58,10 @@ space={
 2d_physics/layer_3="Villagers"
 2d_physics/layer_4="Death"
 2d_physics/layer_5="Hide"
+2d_physics/layer_6="TownSquareVillagers"
+2d_physics/layer_7="TownSquareVillagers2"
+2d_physics/layer_8="Heirlooms"
+2d_physics/layer_9="HeirloomsGrabbed"
 
 [rendering]
 

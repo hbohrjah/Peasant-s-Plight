@@ -1,0 +1,30 @@
+[gd_scene load_steps=4 format=3 uid="uid://dkwdpfco7076o"]
+
+[ext_resource type="Script" path="res://Objects/TownSquare.gd" id="1_lc3o0"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_3b5f8"]
+radius = 1074.17
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_pat5v"]
+radius = 18.0278
+
+[node name="TownSquare" type="Node2D"]
+script = ExtResource("1_lc3o0")
+
+[node name="theBells" type="Area2D" parent="."]
+collision_layer = 64
+collision_mask = 64
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="theBells"]
+shape = SubResource("CircleShape2D_3b5f8")
+debug_color = Color(1, 0, 0.105882, 0)
+
+[node name="villagerEntered" type="Area2D" parent="."]
+collision_layer = 32
+collision_mask = 32
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="villagerEntered"]
+shape = SubResource("CircleShape2D_pat5v")
+debug_color = Color(0.74902, 0.462745, 0, 0)
+
+[connection signal="area_entered" from="villagerEntered" to="." method="_on_villager_entered_area_entered"]

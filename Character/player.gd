@@ -9,7 +9,6 @@ extends CharacterBody2D
 const bulletPath = preload('res://fireball.tscn')
 
 
-
 func _ready():
 	update_animation_parameters(starting_direction)
 	

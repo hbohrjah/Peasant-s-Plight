@@ -1,9 +1,10 @@
-[gd_scene load_steps=11 format=3 uid="uid://2hst8v5efxkn"]
+[gd_scene load_steps=15 format=3 uid="uid://2hst8v5efxkn"]
 
 [ext_resource type="Texture2D" uid="uid://cealk1gssp37i" path="res://Art/Tiles/tile_0088.png" id="1_4flws"]
 [ext_resource type="Script" path="res://Character/NewVillagers/new_villager.gd" id="1_fkd34"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_2t53l"]
+radius = 7.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_o5hhg"]
 radius = 78.0577
@@ -18,12 +19,23 @@ size = Vector2(20, 358)
 radius = 662.822
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_1tri1"]
-radius = 15.0
+radius = 28.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_gmla6"]
 radius = 11.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_1kvot"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_0tjal"]
+radius = 3.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_nuwsl"]
+radius = 3.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_sefe5"]
+radius = 54.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_mdlyl"]
 
 [node name="NewVillager" type="CharacterBody2D" node_paths=PackedStringArray("navAgent")]
 collision_layer = 4
@@ -42,7 +54,7 @@ shape = SubResource("CircleShape2D_2t53l")
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
 avoidance_enabled = true
-radius = 4.06
+radius = 1.0
 neighbor_distance = 8.9
 max_neighbors = 4
 debug_enabled = true
@@ -103,8 +115,48 @@ collision_layer = 16
 collision_mask = 16
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="aggro/HideRange"]
+visible = false
 shape = SubResource("CircleShape2D_1kvot")
 debug_color = Color(0.682353, 0.356863, 0, 0)
+
+[node name="townSquareGet" type="Area2D" parent="aggro"]
+collision_layer = 32
+collision_mask = 32
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="aggro/townSquareGet"]
+visible = false
+shape = SubResource("CircleShape2D_0tjal")
+debug_color = Color(0.682353, 0.356863, 0, 0)
+
+[node name="theBells" type="Area2D" parent="aggro"]
+collision_layer = 64
+collision_mask = 64
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="aggro/theBells"]
+visible = false
+shape = SubResource("CircleShape2D_nuwsl")
+
+[node name="Heirlooms" type="Area2D" parent="aggro"]
+collision_layer = 128
+collision_mask = 128
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="aggro/Heirlooms"]
+visible = false
+shape = SubResource("CircleShape2D_sefe5")
+debug_color = Color(0, 0.65098, 0.0392157, 0)
+
+[node name="HeirloomsGrabbed" type="Area2D" parent="aggro"]
+collision_layer = 256
+collision_mask = 256
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="aggro/HeirloomsGrabbed"]
+shape = SubResource("CircleShape2D_mdlyl")
+
+[node name="bellChimes" type="Timer" parent="."]
+wait_time = 2.0
+autostart = true
+
+[node name="tripTimer" type="Timer" parent="."]
 
 [connection signal="velocity_computed" from="NavigationAgent2D" to="." method="_on_navigation_agent_2d_velocity_computed"]
 [connection signal="timeout" from="Recalculator" to="." method="_on_recalculator_timeout"]
@@ -113,3 +165,8 @@ debug_color = Color(0.682353, 0.356863, 0, 0)
 [connection signal="area_entered" from="aggro/otherRange" to="." method="_on_other_range_area_entered"]
 [connection signal="area_entered" from="aggro/vilagerRange" to="." method="_on_vilager_range_area_entered"]
 [connection signal="area_entered" from="aggro/deathRange" to="." method="_on_death_range_area_entered"]
+[connection signal="area_entered" from="aggro/theBells" to="." method="_on_the_bells_area_entered"]
+[connection signal="area_entered" from="aggro/Heirlooms" to="." method="_on_heirlooms_area_entered"]
+[connection signal="area_entered" from="aggro/HeirloomsGrabbed" to="." method="_on_heirlooms_grabbed_area_entered"]
+[connection signal="timeout" from="bellChimes" to="." method="_on_bell_chimes_timeout"]
+[connection signal="timeout" from="tripTimer" to="." method="_on_trip_timer_timeout"]
