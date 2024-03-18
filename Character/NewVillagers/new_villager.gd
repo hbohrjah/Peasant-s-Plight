@@ -9,7 +9,7 @@ var shouldRun = false
 
 var townSquare = false
 
-var killme = false #variables
+var killme = false
 
 func _ready():
 	
@@ -74,5 +74,4 @@ func _on_vilager_range_area_entered(area):
 
 func _on_death_range_area_entered(area):
 	if area.owner.killme:
-		area.owner.queue_free()
 		queue_free()

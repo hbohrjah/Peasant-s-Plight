@@ -17,6 +17,11 @@ func _process(delta):
 	if Input.is_action_just_pressed("click"):
 		breathe()
 	
+	if Input.is_action_pressed("space"):
+		boost()
+	else:
+		move_speed = 100.0
+	
 	$Node2D.look_at(get_global_mouse_position())
 
 func _physics_process(delta):
@@ -58,4 +63,7 @@ func breathe():
 	
 	bullet.vel = get_global_mouse_position() - bullet.position
 	count = count +1
+	
+func boost():
+	move_speed = 250.0
 	
