@@ -12,7 +12,7 @@ radius = 74.1687
 radius = 662.822
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_1tri1"]
-radius = 11.0454
+radius = 16.0312
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_gmla6"]
 radius = 11.0
@@ -29,6 +29,7 @@ navAgent = NodePath("NavigationAgent2D")
 texture = ExtResource("1_4flws")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
 shape = SubResource("CircleShape2D_2t53l")
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
@@ -48,6 +49,7 @@ collision_layer = 0
 collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="aggro/fearRange"]
+visible = false
 shape = SubResource("CircleShape2D_o5hhg")
 debug_color = Color(1, 1, 1, 0)
 
@@ -56,6 +58,7 @@ collision_layer = 0
 collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="aggro/otherRange"]
+visible = false
 shape = SubResource("CircleShape2D_1n3sy")
 debug_color = Color(0, 0.6, 0.701961, 0)
 
@@ -72,6 +75,7 @@ collision_layer = 0
 collision_mask = 8
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="aggro/deathRange"]
+visible = false
 shape = SubResource("CircleShape2D_gmla6")
 
 [connection signal="velocity_computed" from="NavigationAgent2D" to="." method="_on_navigation_agent_2d_velocity_computed"]

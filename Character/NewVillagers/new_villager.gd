@@ -6,10 +6,11 @@ extends CharacterBody2D
 var targetNode = null
 var player = null
 var shouldRun = false
+var hasSeenDragon = false
 
 var townSquare = false
 
-var killme = false
+var killme = false 
 
 func _ready():
 	
@@ -22,8 +23,8 @@ func _physics_process(_delta):
 	var intendedVelocity = axis * speed
 	navAgent.set_velocity(intendedVelocity)
 	
-	
-func recalc_path():
+
+func recalc_path(): 
 	if targetNode:
 		navAgent.target_position = targetNode
 		
@@ -38,8 +39,7 @@ func recalc_path():
 		elif ((1600 - player.global_position.x) >= (1600 - self.global_position.x)) && ((1045 - player.global_position.y) >= (1045 - self.global_position.y)):
 			targetNode = Vector2(1600, 1045)
 		
-	if player:
-		print(player.global_position)
+
 
 func timer_start():
 	$Recalculator.start()
@@ -47,31 +47,42 @@ func timer_start():
 	if townSquare: #if this villager has not yet been to the town square
 		targetNode = Vector2(575, 575) #then target the town square
 
+#every time the timer (named recalculator) times out, we recalculate the path
 func _on_recalculator_timeout():
 	recalc_path()
+
+#This function works with the avoidance behaviors to prevent villagers from overlapping
 func _on_navigation_agent_2d_velocity_computed(safe_velocity):
 	velocity = safe_velocity
 	move_and_slide()
 
-func _on_fear_range_area_entered(area): #placeholder for line of sight of the dragon
+#if the dragon enters a radius around the villager, then the villager should start running
+func _on_fear_range_area_entered(area): 
 	timer_start()
+	hasSeenDragon = true
 	
 
+#if the dragon is no longer in line of sight, the villager should not change the direction it runs
 func _on_fear_range_area_exited(area): 
-	shouldRun = false  #if the dragon is no longer in line of sight, the villager should not change the direction it runs
-	
-func _on_other_range_area_entered(area): #this signal exists solely to get the player node so we can work with its coordinates
+	shouldRun = false  
+
+#this signal exists solely to get the player node so we can work with its coordinates
+func _on_other_range_area_entered(area): #the radius is huge
 	player = area.owner 
 
 
+#function to make villagers "tell each other" to run as they encounter each other
 func _on_vilager_range_area_entered(area):
 	print("test")
-	area.owner.timer_start()
-	area.owner.player = player
+	if hasSeenDragon: #so that they don't start running just because they spawn next to each other
+		area.owner.timer_start()
+		area.owner.player = player
+		area.owner.hasSeenDragon = true
 	
 	
 
-
+#if a villager is touched by the dragon's fireball, we free both the villager and the fireball
 func _on_death_range_area_entered(area):
 	if area.owner.killme:
+		area.owner.queue_free()
 		queue_free()
