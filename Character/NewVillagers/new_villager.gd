@@ -9,8 +9,11 @@ var shouldRun = false
 var hasSeenDragon = false
 
 var townSquare = false
+var hiding = false
+
 
 var killme = false 
+
 
 func _ready():
 	
@@ -30,7 +33,7 @@ func recalc_path():
 		navAgent.target_position = targetNode
 		
 	
-	if !townSquare && player && shouldRun: #if we have been to the town square and we have encountered the player
+	if !townSquare && player && shouldRun && !hiding: #if we have been to the town square and we have encountered the player
 		if ((15 + player.global_position.x) >= (15 + self.global_position.x)) && ((25 + player.global_position.y) >= (25 + self.global_position.y)):
 			targetNode = Vector2(15, 25)
 		elif ((15 + player.global_position.x) >= (15 + self.global_position.x)) && ((1045 - player.global_position.y) >= (1045 - self.global_position.y)):
