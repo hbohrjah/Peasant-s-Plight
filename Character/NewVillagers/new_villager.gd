@@ -22,6 +22,7 @@ func _physics_process(_delta):
 	var axis = to_local(navAgent.get_next_path_position()).normalized() #gets the direction this villager will be heading
 	var intendedVelocity = axis * speed
 	navAgent.set_velocity(intendedVelocity)
+	$Sprite2D.rotation = intendedVelocity.angle()
 	
 
 func recalc_path(): 
@@ -73,11 +74,13 @@ func _on_other_range_area_entered(area): #the radius is huge
 
 #function to make villagers "tell each other" to run as they encounter each other
 func _on_vilager_range_area_entered(area):
-	print("test")
-	if hasSeenDragon: #so that they don't start running just because they spawn next to each other
+	if hasSeenDragon && !area.owner.hasSeenDragon: #so that they don't start running just because they spawn next to each other
+		print("run")
 		area.owner.timer_start()
 		area.owner.player = player
 		area.owner.hasSeenDragon = true
+		area.owner.shouldRun = false
+		area.owner.targetNode = targetNode
 	
 	
 

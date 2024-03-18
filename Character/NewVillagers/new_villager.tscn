@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://2hst8v5efxkn"]
+[gd_scene load_steps=10 format=3 uid="uid://2hst8v5efxkn"]
 
 [ext_resource type="Texture2D" uid="uid://cealk1gssp37i" path="res://Art/Tiles/tile_0088.png" id="1_4flws"]
 [ext_resource type="Script" path="res://Character/NewVillagers/new_villager.gd" id="1_fkd34"]
@@ -6,13 +6,19 @@
 [sub_resource type="CircleShape2D" id="CircleShape2D_2t53l"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_o5hhg"]
-radius = 74.1687
+radius = 78.0577
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6acmj"]
+size = Vector2(448, 20)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_rjuq6"]
+size = Vector2(20, 358)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_1n3sy"]
 radius = 662.822
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_1tri1"]
-radius = 16.0312
+radius = 15.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_gmla6"]
 radius = 11.0
@@ -34,7 +40,7 @@ shape = SubResource("CircleShape2D_2t53l")
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
 avoidance_enabled = true
-radius = 0.96
+radius = 4.06
 neighbor_distance = 8.9
 max_neighbors = 4
 debug_enabled = true
@@ -49,8 +55,16 @@ collision_layer = 0
 collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="aggro/fearRange"]
-visible = false
 shape = SubResource("CircleShape2D_o5hhg")
+debug_color = Color(1, 1, 1, 0)
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="aggro/fearRange"]
+shape = SubResource("RectangleShape2D_6acmj")
+debug_color = Color(1, 1, 1, 0)
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="aggro/fearRange"]
+position = Vector2(0, 1)
+shape = SubResource("RectangleShape2D_rjuq6")
 debug_color = Color(1, 1, 1, 0)
 
 [node name="otherRange" type="Area2D" parent="aggro"]
