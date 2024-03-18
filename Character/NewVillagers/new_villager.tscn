@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://2hst8v5efxkn"]
+[gd_scene load_steps=8 format=3 uid="uid://2hst8v5efxkn"]
 
 [ext_resource type="Texture2D" uid="uid://cealk1gssp37i" path="res://Art/Tiles/tile_0088.png" id="1_4flws"]
 [ext_resource type="Script" path="res://Character/NewVillagers/new_villager.gd" id="1_fkd34"]
@@ -6,10 +6,16 @@
 [sub_resource type="CircleShape2D" id="CircleShape2D_2t53l"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_o5hhg"]
-radius = 142.004
+radius = 74.1687
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_1n3sy"]
 radius = 662.822
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_1tri1"]
+radius = 11.0454
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_gmla6"]
+radius = 11.0
 
 [node name="NewVillager" type="CharacterBody2D" node_paths=PackedStringArray("navAgent")]
 collision_layer = 4
@@ -27,13 +33,13 @@ shape = SubResource("CircleShape2D_2t53l")
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
 avoidance_enabled = true
-radius = 6.96
-neighbor_distance = 15.1
-max_neighbors = 5
+radius = 0.96
+neighbor_distance = 8.9
+max_neighbors = 4
 debug_enabled = true
 
 [node name="Recalculator" type="Timer" parent="."]
-wait_time = 0.4
+wait_time = 0.25
 
 [node name="aggro" type="Node2D" parent="."]
 
@@ -53,7 +59,25 @@ collision_mask = 2
 shape = SubResource("CircleShape2D_1n3sy")
 debug_color = Color(0, 0.6, 0.701961, 0)
 
+[node name="vilagerRange" type="Area2D" parent="aggro"]
+collision_layer = 4
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="aggro/vilagerRange"]
+shape = SubResource("CircleShape2D_1tri1")
+debug_color = Color(0.72549, 0.278431, 0.94902, 0)
+
+[node name="deathRange" type="Area2D" parent="aggro"]
+collision_layer = 0
+collision_mask = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="aggro/deathRange"]
+shape = SubResource("CircleShape2D_gmla6")
+
 [connection signal="velocity_computed" from="NavigationAgent2D" to="." method="_on_navigation_agent_2d_velocity_computed"]
 [connection signal="timeout" from="Recalculator" to="." method="_on_recalculator_timeout"]
 [connection signal="area_entered" from="aggro/fearRange" to="." method="_on_fear_range_area_entered"]
+[connection signal="area_exited" from="aggro/fearRange" to="." method="_on_fear_range_area_exited"]
 [connection signal="area_entered" from="aggro/otherRange" to="." method="_on_other_range_area_entered"]
+[connection signal="area_entered" from="aggro/vilagerRange" to="." method="_on_vilager_range_area_entered"]
+[connection signal="area_entered" from="aggro/deathRange" to="." method="_on_death_range_area_entered"]

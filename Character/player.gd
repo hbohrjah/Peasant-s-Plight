@@ -8,14 +8,12 @@ extends CharacterBody2D
 @onready var state_machine = animation_tree.get("parameters/playback")
 const bulletPath = preload('res://fireball.tscn')
 
-signal position_changed(position)
 
 
 func _ready():
 	update_animation_parameters(starting_direction)
 	
 func _process(delta):
-	emit_signal("position_changed", self.global_position)
 	if Input.is_action_just_pressed("click"):
 		breathe()
 	
