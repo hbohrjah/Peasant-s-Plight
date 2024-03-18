@@ -42,6 +42,7 @@ func _on_recalculator_timeout():
 	recalc_path()
 
 func _on_fear_range_area_entered(area): #placeholder for line of sight of the dragon
+	$Recalculator.start()
 	if townSquare: #if this villager has not yet been to the town square
 		targetNode = Vector2(575, 575) #then target the town square
 	

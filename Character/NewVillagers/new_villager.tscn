@@ -27,13 +27,13 @@ shape = SubResource("CircleShape2D_2t53l")
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
 avoidance_enabled = true
-radius = 10.16
-neighbor_distance = 40.9
+radius = 6.96
+neighbor_distance = 15.1
+max_neighbors = 5
 debug_enabled = true
 
 [node name="Recalculator" type="Timer" parent="."]
-wait_time = 0.18
-autostart = true
+wait_time = 0.4
 
 [node name="aggro" type="Node2D" parent="."]
 
