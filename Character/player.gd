@@ -4,6 +4,9 @@ extends CharacterBody2D
 @export var starting_direction: Vector2 = Vector2(0,1)
 #parameters/Idle/blend_position
 
+@onready var boostTime = $boostTime
+@onready var fireTime = $fireTime
+
 @onready var animation_tree = $AnimationTree
 @onready var state_machine = animation_tree.get("parameters/playback")
 const bulletPath = preload('res://fireball.tscn')
@@ -13,11 +16,13 @@ func _ready():
 	update_animation_parameters(starting_direction)
 	
 func _process(delta):
-	if Input.is_action_just_pressed("click"):
+	if Input.is_action_just_pressed("click") and fireTime.is_stopped():
 		breathe()
 	
 	if Input.is_action_pressed("space"):
-		boost()
+		boostTime.start()
+		if !boostTime.is_stopped():
+			boost()
 	else:
 		move_speed = 100.0
 	
@@ -64,7 +69,9 @@ func breathe():
 	
 	bullet.vel = get_global_mouse_position() - bullet.position
 	count = count +1
+	fireTime.start()
 	
 func boost():
 	move_speed = 250.0
+	#boostTime.start()
 	
