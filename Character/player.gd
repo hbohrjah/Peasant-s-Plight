@@ -1,6 +1,6 @@
 extends CharacterBody2D
 
-@export var move_speed:float = 65.0
+@export var move_speed:float = 100.0
 @export var starting_direction: Vector2 = Vector2(0,1)
 #parameters/Idle/blend_position
 
@@ -24,7 +24,7 @@ func _process(delta):
 		if !boostTime.is_stopped():
 			boost()
 	else:
-		move_speed = 100.0
+		move_speed = 75.0
 	
 	$Node2D.look_at(get_global_mouse_position())
 
