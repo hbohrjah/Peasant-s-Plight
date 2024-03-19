@@ -22,6 +22,7 @@ func _ready():
 	navAgent.path_desired_distance = 4
 	navAgent.target_desired_distance = 4
 	
+	$AnimationPlayer.play("run")
 
 func _physics_process(_delta):
 	var axis = to_local(navAgent.get_next_path_position()).normalized() #gets the direction this villager will be heading
@@ -32,7 +33,6 @@ func _physics_process(_delta):
 		heirloom.global_position.x = self.global_position.x + 5
 		heirloom.global_position.y = self.global_position.y + 5
 		
-	
 
 func recalc_path(): 
 	if !theBells && !grabbing: #if the bells have not rung

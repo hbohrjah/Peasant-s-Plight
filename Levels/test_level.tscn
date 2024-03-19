@@ -758,9 +758,6 @@ position = Vector2(1487, 864)
 [node name="NewVillager74" parent="." instance=ExtResource("5_yi03h")]
 position = Vector2(1557, 866)
 
-[node name="NewVillager75" parent="." instance=ExtResource("5_yi03h")]
-position = Vector2(1352, 932)
-
 [node name="TownSquare" parent="." instance=ExtResource("6_gmitb")]
 visible = false
 position = Vector2(772, 530)

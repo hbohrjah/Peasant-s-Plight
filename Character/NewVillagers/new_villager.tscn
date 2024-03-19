@@ -1,7 +1,7 @@
-[gd_scene load_steps=15 format=3 uid="uid://2hst8v5efxkn"]
+[gd_scene load_steps=17 format=3 uid="uid://2hst8v5efxkn"]
 
-[ext_resource type="Texture2D" uid="uid://cealk1gssp37i" path="res://Art/Tiles/tile_0088.png" id="1_4flws"]
 [ext_resource type="Script" path="res://Character/NewVillagers/new_villager.gd" id="1_fkd34"]
+[ext_resource type="Texture2D" uid="uid://bqxg765vfwai2" path="res://Character/NewVillagers/villager2walk.png" id="2_j8mwk"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_2t53l"]
 radius = 7.0
@@ -37,6 +37,27 @@ radius = 54.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_mdlyl"]
 
+[sub_resource type="Animation" id="Animation_pfdd0"]
+resource_name = "run"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_n653n"]
+_data = {
+"run": SubResource("Animation_pfdd0")
+}
+
 [node name="NewVillager" type="CharacterBody2D" node_paths=PackedStringArray("navAgent")]
 collision_layer = 4
 collision_mask = 7
@@ -46,7 +67,9 @@ script = ExtResource("1_fkd34")
 navAgent = NodePath("NavigationAgent2D")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("1_4flws")
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("2_j8mwk")
+hframes = 6
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 visible = false
@@ -157,6 +180,11 @@ wait_time = 2.0
 autostart = true
 
 [node name="tripTimer" type="Timer" parent="."]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_n653n")
+}
 
 [connection signal="velocity_computed" from="NavigationAgent2D" to="." method="_on_navigation_agent_2d_velocity_computed"]
 [connection signal="timeout" from="Recalculator" to="." method="_on_recalculator_timeout"]

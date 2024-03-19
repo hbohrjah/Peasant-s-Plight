@@ -1,0 +1,4 @@
+res://Character/player.tscn
+res://Character/NewVillagers/new_villager.tscn
+res://Levels/test_level.tscn
+res://Character/player.gd

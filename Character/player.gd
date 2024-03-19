@@ -1,6 +1,6 @@
 extends CharacterBody2D
 
-@export var move_speed:float = 100.0
+@export var move_speed:float = 65.0
 @export var starting_direction: Vector2 = Vector2(0,1)
 #parameters/Idle/blend_position
 
@@ -38,6 +38,7 @@ func _physics_process(delta):
 	update_animation_parameters(input_direction)
 	velocity = input_direction * move_speed
 	
+	look_at(get_global_mouse_position())
 	
 	pick_new_state()
 	move_and_slide()
